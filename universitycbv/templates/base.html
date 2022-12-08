@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} University {% endblock %}</title>
+    {% load static %}
+    {% block staticfiles %} <link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endblock %}
+</head>
+
+<body>
+<ul id='navbar'>
+    <li><a href="{% url 'departments:home' %}">Departments</a></li>
+    <li><a href="{% url 'students:home' %}">Students</a></li>
+    {% if request.user.is_authenticated %}
+        <li style="float: right"><a href="{% url 'users:logout' %}">Logout</a></li>
+        <li style="float: right"><a href="">{{ request.user.email }}</a></li>
+    {% else %}
+        <li style="float: right"><a href="{% url 'users:login' %}">Login</a></li>
+        <li style="float: right"><a href="{% url 'users:create' %}">Sign up</a></li>
+    {% endif %}
+</ul>
+{% block content %} {% endblock %}
+</body>
+</html>

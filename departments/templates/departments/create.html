@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+{% block title %} Add department {% endblock %}
+
+{% block content %}
+<h3>Add department</h3>
+
+<form action="{% url 'departments:create' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit">
+</form>
+{% endblock %}

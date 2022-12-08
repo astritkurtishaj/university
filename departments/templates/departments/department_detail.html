@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ department.name }} {% endblock %}
+
+
+{% block content %}
+    <h3>{{ department.name }}</h3>
+    <button onclick="window.location.href='{% url "departments:update" department.pk %}'">Update</button>
+    <button onclick="window.location.href='{% url "departments:delete" department.pk %}'">Delete</button>
+    <p>Opening date: {{ department.opened_on }}</p>
+
+    <h4>Students:</h4>
+    <ul>
+        {% for student in department.student_set.all %}
+            <li><a href="{% url 'students:detail' student.pk %}">{{ student.full_name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

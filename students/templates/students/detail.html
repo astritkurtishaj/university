@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %} {{ student.full_name }} {% endblock %}
+
+{% block content %}
+<p>First name: {{ student.first_name }}</p>
+<p>Last name: {{ student.last_name }}</p>
+<p>Department:
+    <a href="{% url 'departments:detail' student.department.pk %}">{{ student.department.name }}</a>
+</p>
+{% endblock %}

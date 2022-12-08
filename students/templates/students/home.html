@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %} Students {% endblock %}
+
+{% block content %}
+<br><h3>Students</h3><br>
+
+{% if perms.students.add_student %}
+    <a href="{% url 'students:create' %}">Add student</a>
+{% endif %}
+
+<table>
+    <tr class="filter">
+        <form action="{% url 'students:home' %}">
+            <th></th>
+            <th><input type="text" name="first_name" placeholder="Search by first name"></th>
+            <th><input type="text" name="last_name" placeholder="Search by last name"></th>
+            <th>
+                <select name="department">
+                    <option value="0">Select department</option>
+                    {% for department in departments %}
+                        <option value="{{ department.pk }}">{{ department.name }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+            <th><button type="submit">Search</button></th>
+        </form>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th><a href="?order_by=first_name">First name</a></th>
+        <th><a href="?order_by=last_name">Last name</a></th>
+        <th><a href="?order_by=department__name">Department</a></th>
+    </tr>
+
+    {% for student in students %}
+        <tr onclick='window.location.href="{% url 'students:detail' student.pk %}"'>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ student.first_name }}</td>
+            <td>{{ student.last_name }}</td>
+            <td>{{ student.department }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

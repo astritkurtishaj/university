@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Add user {% endblock %}
+
+{% block content %}
+<h3>Add user</h3>
+
+<form action="{% url 'users:create' %}" method="POST">
+    {% csrf_token %}
+    <ul style="list-style-type: none">
+        <li>Email: <input type="email" name="email"></li>
+        {% if email_error %}
+            <li style="color: red">{{ email_error }}</li>
+        {% endif %}
+        <li>Password: <input type="password" name="password"></li>
+        <li>Confirm password: <input type="password" name="password_confirm"></li>
+        {% if password_error %}
+            <li style="color: red">{{ password_error }}</li>
+        {% endif %}
+        <li><input type="submit"></li>
+    </ul>
+</form>
+{% endblock %}

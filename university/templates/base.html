@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} University {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<ul class="navbar">
+    <li><a href="{% url 'departments:home' %}">Departments</a></li>
+    <li><a href="{% url 'students:home' %}">Students</a></li>
+    {% if request.session.user %}
+        <li style="float: right"><a href="{% url 'users:logout' %}">Logout</a></li>
+        <li style="float: right"><a href="">{{ request.session.user.email }} - {{ request.session.user.role }}</a></li>
+    {% else %}
+        <li style="float: right"><a href="{% url 'users:create' %}">Signup</a></li>
+        <li style="float: right"><a href="{% url 'users:login' %}">Login</a></li>
+    {% endif %}
+</ul>
+
+{% block content %} {% endblock %}
+</body>
+</html>
+
+
